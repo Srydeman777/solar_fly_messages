@@ -1,12 +1,11 @@
 FROM php:8.2-apache
 
-# Enable mysqli
 RUN docker-php-ext-install mysqli
 
-# Copy project files
 COPY . /var/www/html/
 
-# Enable Apache rewrite
-RUN a2enmod rewrite
+# make uploads folder writable
+RUN mkdir -p /var/www/html/uploads \
+    && chmod -R 777 /var/www/html/uploads
 
 EXPOSE 80
